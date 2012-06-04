@@ -7,7 +7,20 @@
 </head>
 
 <body>
-Hello {{ i }}!
+<p>Every time this page is loaded, an interaction record is created. If you click on the following link you will go to another site. That site will confirm that you completed the interaction, giving you a score of one.</p>
+<p><a href="http://trivial-leaf.appspot.com/?d=http://trivial-trunk.appspot.com/&i={{ i }}">Complete your interaction</a></p>
+<ul>
+{% for interaction in interactions %}
+ <li>
+ Interaction created: {{ interaction.date }},
+ {% if interaction.score %}
+  has score: {{ interaction.score }}
+ {% else %}
+  has no score
+ {% endif %}
+ </li>
+{% endfor %}
+</ul>
 </body>
 
 </html>

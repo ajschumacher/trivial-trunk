@@ -8,9 +8,11 @@ class TrivialInteraction(db.Model):
 
 class RootResponse(webapp2.RequestHandler):
     def get(self):
+        interactions = TrivialInteraction.all().order('-date').fetch(40)
         interaction = TrivialInteraction()
         interaction.put()
-        template_values = { 'i': str(interaction.key()) }
+        template_values = { 'i': str(interaction.key()),
+                            'interactions': interactions }
         path = os.path.join(os.path.dirname(__file__), 'trunk.html')
         self.response.out.write(template.render(path, template_values))
     def put(self):
